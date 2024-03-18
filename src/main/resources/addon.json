@@ -1,0 +1,5 @@
+{
+  "uuid": "%uuid%",
+  "name": "AutoChat",
+  "mainClass": "me.giverplay.autochat.AutoChat"
+}
