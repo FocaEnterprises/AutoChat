@@ -1,5 +1,10 @@
 {
   "uuid": "%uuid%",
   "name": "AutoChat",
-  "mainClass": "me.giverplay.autochat.AutoChat"
+  "mainClass": "me.giverplay.autochat.AutoChat",
+  "description": "Auto reply chat messages",
+  "version": 1,
+  "author": "GiverPlay",
+  "category": 2,
+  "icon": "https://iili.io/JXTUZbt.png"
 }
