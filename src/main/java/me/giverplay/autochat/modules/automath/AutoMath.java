@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 public class AutoMath {
   private static final Pattern PATTERN = Pattern.compile("\\[Matem(.+)?tica] Quanto (.+)? (\\d+) ([+\\-*/xX]) (\\d+)\\?");
+  private static final Pattern IGNORE_PATTERN = Pattern.compile("\\[[gl]]");
   private static final Map<String, BiFunction<Integer, Integer, Integer>> OPERATIONS = new HashMap<>();
 
   private final AutoChat addon;
@@ -40,7 +41,11 @@ public class AutoMath {
   public void onChatReceived(ClientChatReceivedEvent event) {
     if(!config.isEnabled()) return;
 
-    Matcher matcher = PATTERN.matcher(event.message.getUnformattedText());
+    String message = event.message.getUnformattedText();
+
+    if(config.ignoreChats() && IGNORE_PATTERN.matcher(message).find()) return;
+
+    Matcher matcher = PATTERN.matcher(message);
 
     if(!matcher.find()) return;
 
