@@ -27,18 +27,18 @@ public class AutoMathConfig {
 
   public void fillSettings(AutoChat addon, List<SettingsElement> settings) {
     settings.add(new HeaderElement("AutoMath"));
-    settings.add(new BooleanElement(ENABLE, addon, new ControlElement.IconData(Material.LEVER), ENABLE, this.enableAutoMath));
-    settings.add(new BooleanElement(IGNORE_CHAT, addon, new ControlElement.IconData(Material.NAME_TAG), ENABLE, this.ignoreChats));
+    settings.add(new BooleanElement("Enable AutoMath", addon, new ControlElement.IconData(Material.LEVER), ENABLE, this.enableAutoMath));
+    settings.add(new BooleanElement("Ignore local and global chats", addon, new ControlElement.IconData(Material.NAME_TAG), ENABLE, this.ignoreChats));
 
-    NumberElement baseTime = new NumberElement("AutoMath Base Reply Time", new ControlElement.IconData(Material.WATCH), this.baseReplyTime);
+    NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseReplyTime);
     baseTime.setConfigEntryName(BASE_TIME);
     settings.add(baseTime);
 
-    NumberElement randomRange = new NumberElement("AutoMath Random Time Range", new ControlElement.IconData(Material.DIODE), this.randomTimeRange);
+    NumberElement randomRange = new NumberElement("Random time range", new ControlElement.IconData(Material.DIODE), this.randomTimeRange);
     randomRange.setConfigEntryName(RANDOM_TIME);
     settings.add(randomRange);
 
-    NumberElement easyDecreaseTime = new NumberElement("AutoMath Easy Decrease Time", new ControlElement.IconData(Material.FEATHER), this.easyDecrease);
+    NumberElement easyDecreaseTime = new NumberElement("Time to decrease when easy", new ControlElement.IconData(Material.FEATHER), this.easyDecrease);
     easyDecreaseTime.setConfigEntryName("AutoMathEasyDecreaseTime");
     settings.add(easyDecreaseTime);
   }
