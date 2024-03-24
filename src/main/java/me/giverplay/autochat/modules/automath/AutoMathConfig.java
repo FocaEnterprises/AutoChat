@@ -39,7 +39,7 @@ public class AutoMathConfig {
     settings.add(randomRange);
 
     NumberElement easyDecreaseTime = new NumberElement("Time to decrease when easy", new ControlElement.IconData(Material.FEATHER), this.easyDecrease);
-    easyDecreaseTime.setConfigEntryName("AutoMathEasyDecreaseTime");
+    easyDecreaseTime.setConfigEntryName(DECREASE_TIME);
     settings.add(easyDecreaseTime);
   }
 
