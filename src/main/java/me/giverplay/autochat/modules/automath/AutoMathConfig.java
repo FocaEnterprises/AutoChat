@@ -28,7 +28,7 @@ public class AutoMathConfig {
   public void fillSettings(AutoChat addon, List<SettingsElement> settings) {
     settings.add(new HeaderElement("AutoMath"));
     settings.add(new BooleanElement("Enable AutoMath", addon, new ControlElement.IconData(Material.LEVER), ENABLE, this.enableAutoMath));
-    settings.add(new BooleanElement("Ignore local and global chats", addon, new ControlElement.IconData(Material.NAME_TAG), ENABLE, this.ignoreChats));
+    settings.add(new BooleanElement("Ignore local and global chats", addon, new ControlElement.IconData(Material.NAME_TAG), IGNORE_CHAT, this.ignoreChats));
 
     NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseReplyTime);
     baseTime.setConfigEntryName(BASE_TIME);
