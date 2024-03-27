@@ -52,25 +52,19 @@ public class AutoMath {
     try {
       int result = evaluateExpression(matcher);
       sendChat(result);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    } catch (Exception ignore) { }
   }
 
   private void sendChat(final int result) {
     final String toSend = Integer.toString(result);
 
     int sleep = config.getBaseReplyTime() + new Random().nextInt(config.getRandomTimeRange());
+    int decrease = config.getEasyDecreaseTime();
 
-    if(result < 1000) {
-      sleep -= config.getEasyDecreaseTime();
-    }
+    if(result < 1000) sleep -= decrease;
+    if(result < 100) sleep -= decrease;
 
-    if(result < 100) {
-      sleep -= config.getEasyDecreaseTime();
-    }
-
-    final int sleepTime = sleep;
+    final int sleepTime = Math.max(sleep, 0);
 
     new Thread(() -> {
       ThreadUtils.sleep(sleepTime);
