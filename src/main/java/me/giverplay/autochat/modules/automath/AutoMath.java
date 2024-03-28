@@ -5,6 +5,10 @@ import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.utils.ThreadUtils;
 import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -39,20 +43,24 @@ public class AutoMath {
 
   @SubscribeEvent
   public void onChatReceived(ClientChatReceivedEvent event) {
-    if(!config.isEnabled()) return;
+    if (!config.isEnabled()) return;
 
     String message = event.message.getUnformattedText();
 
-    if(config.ignoreChats() && IGNORE_PATTERN.matcher(message).find()) return;
+    if (config.ignoreChats() && IGNORE_PATTERN.matcher(message).find()) return;
 
     Matcher matcher = PATTERN.matcher(message);
 
-    if(!matcher.find()) return;
+    if (!matcher.find()) return;
 
     try {
       int result = evaluateExpression(matcher);
       sendChat(result);
-    } catch (Exception ignore) { }
+    } catch (Exception ignore) {
+      IChatComponent chat = new ChatComponentText("[AutoMath] Failed to parse expression.")
+        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
+      Minecraft.getMinecraft().thePlayer.addChatMessage(chat);
+    }
   }
 
   private void sendChat(final int result) {
@@ -61,8 +69,8 @@ public class AutoMath {
     int sleep = config.getBaseReplyTime() + new Random().nextInt(config.getRandomTimeRange());
     int decrease = config.getEasyDecreaseTime();
 
-    if(result < 1000) sleep -= decrease;
-    if(result < 100) sleep -= decrease;
+    if (result < 1000) sleep -= decrease;
+    if (result < 100) sleep -= decrease;
 
     final int sleepTime = Math.max(sleep, 0);
 
