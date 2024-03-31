@@ -15,8 +15,8 @@ public class AutoChat extends LabyModAddon {
   private final Set<ChatModule> modules = new HashSet<>();
 
   public AutoChat() {
-    modules.add(new AutoMath(this));
-    modules.add(new AutoWord(this));
+    registerModule(new AutoMath(this));
+    registerModule(new AutoWord(this));
   }
 
   @Override
@@ -32,5 +32,13 @@ public class AutoChat extends LabyModAddon {
   @Override
   public void loadConfig() {
     modules.forEach(module -> module.loadConfig(getConfig()));
+  }
+
+  public void registerModule(ChatModule module) {
+    if(modules.contains(module)) {
+      throw new IllegalArgumentException("Module already registered");
+    }
+
+    modules.add(module);
   }
 }
