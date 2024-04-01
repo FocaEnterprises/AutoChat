@@ -29,14 +29,20 @@ public class AutoMathConfig {
 
     NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseReplyTime);
     baseTime.setConfigEntryName(BASE_TIME);
+    baseTime.setMinValue(0);
+    baseTime.setMaxValue(10000);
     settings.add(baseTime);
 
     NumberElement randomRange = new NumberElement("Random time range", new ControlElement.IconData(Material.DIODE), this.randomTimeRange);
     randomRange.setConfigEntryName(RANDOM_TIME);
+    randomRange.setMinValue(10);
+    randomRange.setMaxValue(10000);
     settings.add(randomRange);
 
     NumberElement easyDecreaseTime = new NumberElement("Time to decrease when easy", new ControlElement.IconData(Material.FEATHER), this.easyDecrease);
     easyDecreaseTime.setConfigEntryName(DECREASE_TIME);
+    easyDecreaseTime.setMinValue(0);
+    easyDecreaseTime.setMaxValue(10000);
     settings.add(easyDecreaseTime);
   }
 

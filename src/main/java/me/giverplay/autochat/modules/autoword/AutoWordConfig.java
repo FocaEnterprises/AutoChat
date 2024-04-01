@@ -27,10 +27,14 @@ public class AutoWordConfig {
 
     NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseTime);
     baseTime.setConfigEntryName(BASE_TIME);
+    baseTime.setMinValue(0);
+    baseTime.setMaxValue(10000);
     settings.add(baseTime);
 
     NumberElement charTime = new NumberElement("Delay for each character", new ControlElement.IconData(Material.WATCH), this.charTime);
     charTime.setConfigEntryName(CHAR_TIME);
+    charTime.setMinValue(0);
+    charTime.setMaxValue(10000);
     settings.add(charTime);
   }
 
