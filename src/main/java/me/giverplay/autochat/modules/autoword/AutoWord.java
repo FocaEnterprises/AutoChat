@@ -3,6 +3,7 @@ package me.giverplay.autochat.modules.autoword;
 import com.google.gson.JsonObject;
 import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
+import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
 import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
@@ -43,7 +44,7 @@ public class AutoWord extends ChatModule {
 
     new Thread(() -> {
       ThreadUtils.sleep(sleepTime);
-      Minecraft.getMinecraft().thePlayer.sendChatMessage(word);
+      ChatUtils.sendChat(word);
     }).start();
   }
 }
