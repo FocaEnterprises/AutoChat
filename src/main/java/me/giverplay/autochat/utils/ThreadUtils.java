@@ -8,4 +8,11 @@ public class ThreadUtils {
       throw new RuntimeException(e);
     }
   }
+
+  public static void delayed(Runnable callback, long millis) {
+    new Thread(() -> {
+      ThreadUtils.sleep(millis);
+      callback.run();
+    }).start();
+  }
 }

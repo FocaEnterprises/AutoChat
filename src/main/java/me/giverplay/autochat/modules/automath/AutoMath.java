@@ -65,11 +65,7 @@ public class AutoMath extends ChatModule {
     if (result < 100) sleep -= decrease;
 
     final int sleepTime = Math.max(sleep, 0);
-
-    new Thread(() -> {
-      ThreadUtils.sleep(sleepTime);
-      ChatUtils.sendChat(toSend);
-    }).start();
+    ThreadUtils.delayed(() -> ChatUtils.sendChat(toSend), sleepTime);
   }
 
   private int evaluateExpression(Matcher matcher) {

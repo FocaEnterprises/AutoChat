@@ -6,7 +6,6 @@ import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
 import net.labymod.settings.elements.SettingsElement;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.IChatComponent;
 
 import java.util.List;
@@ -41,10 +40,6 @@ public class AutoWord extends ChatModule {
 
   private void sendChat(String word) {
     int sleepTime = config.getBaseTime() + word.length() * config.getCharTime();
-
-    new Thread(() -> {
-      ThreadUtils.sleep(sleepTime);
-      ChatUtils.sendChat(word);
-    }).start();
+    ThreadUtils.delayed(() -> ChatUtils.sendChat(word), sleepTime);
   }
 }
