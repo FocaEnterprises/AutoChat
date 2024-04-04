@@ -1,6 +1,7 @@
 package me.giverplay.autochat;
 
 import me.giverplay.autochat.modules.ChatModule;
+import me.giverplay.autochat.modules.autojackpot.AutoJackpot;
 import me.giverplay.autochat.modules.automath.AutoMath;
 import me.giverplay.autochat.modules.autoword.AutoWord;
 import net.labymod.api.LabyModAddon;
@@ -17,6 +18,7 @@ public class AutoChat extends LabyModAddon {
   public AutoChat() {
     registerModule(new AutoMath(this));
     registerModule(new AutoWord(this));
+    registerModule(new AutoJackpot(this));
   }
 
   @Override
