@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class AutoJackpot extends ChatModule {
   private static final Pattern PATTERN = Pattern.compile("^\\[Bol(.+)o]");
-  private static final Pattern COMPLETED = Pattern.compile("^\\[Bol(.+)o] O evento Bol(.+)o foi finalizado!");
+  private static final Pattern COMPLETED = Pattern.compile("^\\[Bol(.+)o] O vencedor foi (.)!");
 
   private boolean isOpen;
 
