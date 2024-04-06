@@ -15,9 +15,11 @@ public abstract class ChatModule {
 
   protected final AutoChat addon;
   protected final Pattern pattern;
+  protected final String name;
 
-  public ChatModule(AutoChat addon, Pattern pattern) {
+  public ChatModule(AutoChat addon, String name, Pattern pattern) {
     this.addon = addon;
+    this.name = name;
     this.pattern = pattern;
   }
 
@@ -31,9 +33,18 @@ public abstract class ChatModule {
     }
   }
 
+  public final void enable() {
+    addon.getLogger().info("Enabling module " + name);
+    addon.getApi().registerForgeListener(this);
+  }
+
   public abstract void fillSettings(List<SettingsElement> settings);
 
   public abstract void loadConfig(JsonObject config);
 
   public abstract void onChat(IChatComponent message, Matcher matcher);
+
+  public String getName() {
+    return name;
+  }
 }

@@ -19,7 +19,7 @@ public class AutoJackpot extends ChatModule {
   private boolean isOpen;
 
   public AutoJackpot(AutoChat addon) {
-    super(addon, PATTERN);
+    super(addon, "AutoJackPot", PATTERN);
   }
 
   @Override

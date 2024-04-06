@@ -18,7 +18,7 @@ public class AutoWord extends ChatModule {
   private final AutoWordConfig config;
 
   public AutoWord(AutoChat addon) {
-    super(addon, PATTERN);
+    super(addon, "AutoWord", PATTERN);
     this.config = new AutoWordConfig();
   }
 

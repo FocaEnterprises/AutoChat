@@ -27,7 +27,7 @@ public class AutoMath extends ChatModule {
   private final AutoMathConfig config;
 
   public AutoMath(AutoChat addon) {
-    super(addon, PATTERN);
+    super(addon, "AutoMath", PATTERN);
     this.config = new AutoMathConfig();
   }
 

@@ -6,6 +6,8 @@ import me.giverplay.autochat.modules.automath.AutoMath;
 import me.giverplay.autochat.modules.autoword.AutoWord;
 import net.labymod.api.LabyModAddon;
 import net.labymod.settings.elements.SettingsElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Set;
 
 public class AutoChat extends LabyModAddon {
 
+  private final Logger logger = LogManager.getLogger("AutoChat");
   private final Set<ChatModule> modules = new HashSet<>();
 
   public AutoChat() {
@@ -23,7 +26,9 @@ public class AutoChat extends LabyModAddon {
 
   @Override
   public void onEnable() {
-    modules.forEach(getApi()::registerForgeListener);
+    logger.info("Enabling AutoChat");
+    logger.info("Loading modules");
+    modules.forEach(ChatModule::enable);
   }
 
   @Override
@@ -42,5 +47,9 @@ public class AutoChat extends LabyModAddon {
     }
 
     modules.add(module);
+  }
+
+  public Logger getLogger() {
+    return logger;
   }
 }
