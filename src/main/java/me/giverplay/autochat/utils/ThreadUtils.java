@@ -15,4 +15,8 @@ public class ThreadUtils {
       callback.run();
     }).start();
   }
+
+  public static void execute(Runnable runnable) {
+    new Thread(runnable).start();
+  }
 }
