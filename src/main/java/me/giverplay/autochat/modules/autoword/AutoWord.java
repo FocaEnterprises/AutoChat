@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AutoWord extends ChatModule {
-  private static final Pattern PATTERN = Pattern.compile("\\[Palavra] Digite a seguinte palavra no chat: (\\w+)");
+  private static final Pattern PATTERN = Pattern.compile("\\[Palavra] Digite a seguinte palavra no chat: (.+)");
 
   private final AutoWordConfig config;
 
