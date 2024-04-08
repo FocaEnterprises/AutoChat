@@ -1,50 +1,61 @@
 package me.giverplay.autochat.modules.autofastclick;
 
+import com.google.gson.JsonObject;
+import me.giverplay.autochat.AutoChat;
+import me.giverplay.autochat.modules.ChatModule;
+import me.giverplay.autochat.utils.ChatUtils;
+import me.giverplay.autochat.utils.ThreadUtils;
+import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class AutoFastClick {
-  @SubscribeEvent
-  public void onChatReceived(ClientChatReceivedEvent event) {
-    System.out.println("catarroooooooo");
-    IChatComponent message = event.message;
-    ChatStyle chatStyle = message.getChatStyle();
+public class AutoFastClick extends ChatModule {
+  private static final Pattern PATTERN = Pattern.compile("\\[[Xx]]");
 
-    if(chatStyle != null) {
-      ClickEvent chatClickEvent = chatStyle.getChatClickEvent();
+  public AutoFastClick(AutoChat addon) {
+    super(addon, "AutoFastClick", PATTERN);
+  }
 
-      if(chatClickEvent != null) {
-        System.out.println("Tem click event");
-        System.out.println("Raw: " + message.getUnformattedText());
-        System.out.println("Formatted: " + message.getFormattedText().replace('\u00A7', '&'));
-        System.out.println("Action " + chatClickEvent.getAction());
-        System.out.println("Value + " + chatClickEvent.getValue());
-        System.out.println();
-        System.out.println();
+  @Override
+  public void onChat(IChatComponent message, Matcher matcher) {
+    checkComponent(message);
+  }
+
+  private void checkComponent(IChatComponent component) {
+    String text = component.getFormattedText().replace('\u00A7', '&');
+
+    if(text.contains("&e")) {
+      ChatStyle style = component.getChatStyle();
+
+      if (style != null) {
+        ClickEvent clickEvent = style.getChatClickEvent();
+
+        if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
+          sendMessage(clickEvent.getValue());
+          return;
+        }
       }
     }
 
-    message.getSiblings().forEach(sib -> {
-      ChatStyle st = sib.getChatStyle();
+    component.getSiblings().forEach(this::checkComponent);
+  }
 
-      if(st != null) {
-        ClickEvent cc = st.getChatClickEvent();
+  private void sendMessage(String msg) {
+    ThreadUtils.delayed(() -> ChatUtils.sendChat(msg), 1000);
+  }
 
-        if(cc != null) {
-          System.out.println("SIBLINGS Tem click event");
-          System.out.println("Raw: " + sib.getUnformattedText());
-          System.out.println("Formatted: " + sib.getFormattedText().replace('\u00A7', '&'));
-          System.out.println("Action: " + cc.getAction());
-          System.out.println("Value: " + cc.getValue());
-          System.out.println();
-          System.out.println();
-        }
-      }
-    });
+  @Override
+  public void fillSettings(List<SettingsElement> settings) {
+
+  }
+
+  @Override
+  public void loadConfig(JsonObject config) {
+
   }
 }
