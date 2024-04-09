@@ -53,6 +53,12 @@ public class AutoChat extends LabyModAddon {
     modules.add(module);
   }
 
+  @Override
+  public void saveConfig() {
+    modules.forEach(module -> module.saveConfig(AutoChat.this.getConfig()));
+    super.saveConfig();
+  }
+
   public Logger getLogger() {
     return logger;
   }

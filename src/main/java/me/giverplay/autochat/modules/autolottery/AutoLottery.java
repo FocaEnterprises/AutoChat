@@ -1,16 +1,12 @@
 package me.giverplay.autochat.modules.autolottery;
 
-import com.google.gson.JsonObject;
 import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
-import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.util.IChatComponent;
 
-import java.math.BigInteger;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -27,6 +23,11 @@ public class AutoLottery extends ChatModule {
 
   public AutoLottery(AutoChat addon) {
     super(addon, "AutoLottery", PATTERN);
+  }
+
+  @Override
+  protected void initConfig() {
+
   }
 
   @Override
@@ -70,15 +71,5 @@ public class AutoLottery extends ChatModule {
       ThreadUtils.sleep(800);
       ChatUtils.sendChat("/loteria " + entry);
     }
-  }
-
-  @Override
-  public void fillSettings(List<SettingsElement> settings) {
-
-  }
-
-  @Override
-  public void loadConfig(JsonObject config) {
-
   }
 }

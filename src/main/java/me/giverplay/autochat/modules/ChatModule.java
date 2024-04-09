@@ -17,10 +17,13 @@ public abstract class ChatModule {
   protected final Pattern pattern;
   protected final String name;
 
+  protected ChatModuleConfig config;
+
   public ChatModule(AutoChat addon, String name, Pattern pattern) {
     this.addon = addon;
     this.name = name;
     this.pattern = pattern;
+    initConfig();
   }
 
   @SubscribeEvent
@@ -38,13 +41,41 @@ public abstract class ChatModule {
     addon.getApi().registerForgeListener(this);
   }
 
-  public abstract void fillSettings(List<SettingsElement> settings);
+  public final void fillSettings(List<SettingsElement> settings) {
+    config.fillSettings(settings);
+  }
 
-  public abstract void loadConfig(JsonObject config);
+  public final void loadConfig(JsonObject config) {
+    JsonObject section = getSection(config);
+    this.config.loadConfig(section);
+  }
+
+  public final void saveConfig(JsonObject config) {
+    JsonObject section = getSection(config);
+    this.config.saveConfig(section);
+  }
+
+  private JsonObject getSection(JsonObject config) {
+    if(!config.has(name)) {
+      config.add(name, new JsonObject());
+    }
+
+    return config.getAsJsonObject(name);
+  }
 
   public abstract void onChat(IChatComponent message, Matcher matcher);
 
+  protected abstract void initConfig();
+
   public String getName() {
     return name;
+  }
+
+  public AutoChat getAddon() {
+    return addon;
+  }
+
+  public ChatModuleConfig getConfig() {
+    return config;
   }
 }

@@ -1,14 +1,11 @@
 package me.giverplay.autochat.modules.autojackpot;
 
-import com.google.gson.JsonObject;
 import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
-import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.util.IChatComponent;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +17,11 @@ public class AutoJackpot extends ChatModule {
 
   public AutoJackpot(AutoChat addon) {
     super(addon, "AutoJackPot", PATTERN);
+  }
+
+  @Override
+  protected void initConfig() {
+
   }
 
   @Override
@@ -37,15 +39,5 @@ public class AutoJackpot extends ChatModule {
 
     isOpen = true;
     ThreadUtils.delayed(() -> ChatUtils.sendChat("/bolao"), 1000);
-  }
-
-  @Override
-  public void fillSettings(List<SettingsElement> settings) {
-
-  }
-
-  @Override
-  public void loadConfig(JsonObject config) {
-
   }
 }

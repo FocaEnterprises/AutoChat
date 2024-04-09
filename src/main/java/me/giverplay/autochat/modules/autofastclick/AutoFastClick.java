@@ -1,16 +1,13 @@
 package me.giverplay.autochat.modules.autofastclick;
 
-import com.google.gson.JsonObject;
 import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
-import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +16,11 @@ public class AutoFastClick extends ChatModule {
 
   public AutoFastClick(AutoChat addon) {
     super(addon, "AutoFastClick", PATTERN);
+  }
+
+  @Override
+  protected void initConfig() {
+
   }
 
   @Override
@@ -47,15 +49,5 @@ public class AutoFastClick extends ChatModule {
 
   private void sendMessage(String msg) {
     ThreadUtils.delayed(() -> ChatUtils.sendChat(msg), 1000);
-  }
-
-  @Override
-  public void fillSettings(List<SettingsElement> settings) {
-
-  }
-
-  @Override
-  public void loadConfig(JsonObject config) {
-
   }
 }

@@ -1,29 +1,29 @@
 package me.giverplay.autochat.modules.autoword;
 
 import com.google.gson.JsonObject;
-import me.giverplay.autochat.AutoChat;
-import net.labymod.settings.elements.BooleanElement;
+import me.giverplay.autochat.modules.ChatModuleConfig;
 import net.labymod.settings.elements.ControlElement;
-import net.labymod.settings.elements.HeaderElement;
 import net.labymod.settings.elements.NumberElement;
 import net.labymod.settings.elements.SettingsElement;
 import net.labymod.utils.Material;
 
 import java.util.List;
 
-public class AutoWordConfig {
+public class AutoWordConfig extends ChatModuleConfig {
 
-  private static final String ENABLE = "AutoWordEnable";
   private static final String BASE_TIME = "AutoWordBaseTime";
   private static final String CHAR_TIME = "AutoWordCharTime";
 
-  private boolean enableAutoWord;
   private int baseTime;
   private int charTime;
 
-  public void fillSettings(AutoChat addon, List<SettingsElement> settings) {
-    settings.add(new HeaderElement("AutoWord"));
-    settings.add(new BooleanElement("Enable AutoWord", addon, new ControlElement.IconData(Material.LEVER), ENABLE, this.enableAutoWord));
+  public AutoWordConfig(AutoWord module) {
+    super(module);
+  }
+
+  @Override
+  public void fillSettings(List<SettingsElement> settings) {
+    super.fillSettings(settings);
 
     NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseTime);
     baseTime.setConfigEntryName(BASE_TIME);
@@ -38,14 +38,10 @@ public class AutoWordConfig {
     settings.add(charTime);
   }
 
+  @Override
   public void loadConfig(JsonObject config) {
-    this.enableAutoWord = config.has(ENABLE) && config.get(ENABLE).getAsBoolean();
     this.baseTime = config.has(BASE_TIME) ? config.get(BASE_TIME).getAsInt() : 800;
     this.charTime = config.has(CHAR_TIME) ? config.get(CHAR_TIME).getAsInt() : 200;
-  }
-
-  public boolean isEnabled() {
-    return enableAutoWord;
   }
 
   public int getBaseTime() {

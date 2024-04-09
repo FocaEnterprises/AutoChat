@@ -1,11 +1,9 @@
 package me.giverplay.autochat.modules.automath;
 
-import com.google.gson.JsonObject;
 import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
-import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -13,7 +11,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.BiFunction;
@@ -24,21 +21,13 @@ public class AutoMath extends ChatModule {
   private static final Pattern PATTERN = Pattern.compile("\\[Matem(.+)?tica] Quanto (.+)? (\\d+) ([+\\-*/xX]) (\\d+)\\?");
   private static final Map<String, BiFunction<Integer, Integer, Integer>> OPERATIONS = new HashMap<>();
 
-  private final AutoMathConfig config;
-
   public AutoMath(AutoChat addon) {
     super(addon, "AutoMath", PATTERN);
-    this.config = new AutoMathConfig();
   }
 
   @Override
-  public void fillSettings(List<SettingsElement> settings) {
-    this.config.fillSettings(addon, settings);
-  }
-
-  @Override
-  public void loadConfig(JsonObject config) {
-    this.config.loadConfig(config);
+  protected void initConfig() {
+    this.config = new AutoMathConfig(this);
   }
 
   @Override
@@ -55,11 +44,16 @@ public class AutoMath extends ChatModule {
     }
   }
 
+  @Override
+  public AutoMathConfig getConfig() {
+    return (AutoMathConfig) super.getConfig();
+  }
+
   private void sendChat(final int result) {
     final String toSend = Integer.toString(result);
 
-    int sleep = config.getBaseReplyTime() + new Random().nextInt(config.getRandomTimeRange());
-    int decrease = config.getEasyDecreaseTime();
+    int sleep = getConfig().getBaseReplyTime() + new Random().nextInt(getConfig().getRandomTimeRange());
+    int decrease = getConfig().getEasyDecreaseTime();
 
     if (result < 1000) sleep -= decrease;
     if (result < 100) sleep -= decrease;
