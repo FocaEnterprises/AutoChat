@@ -4,6 +4,7 @@ import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import java.util.HashMap;
@@ -34,7 +35,9 @@ public class AutoMath extends ChatModule {
       int result = evaluateExpression(matcher);
       sendChat(result);
     } catch (Exception ignore) {
-      ChatUtils.addChat("[AutoMath] Failed to parse expression.");
+      ChatUtils.builder("[AutoMath] Failed to parse expression")
+        .color(EnumChatFormatting.RED)
+        .addToChat();
     }
   }
 

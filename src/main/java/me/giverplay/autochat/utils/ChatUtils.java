@@ -13,4 +13,16 @@ public class ChatUtils {
     IChatComponent chat = new ChatComponentText(msg);
     Minecraft.getMinecraft().thePlayer.addChatMessage(chat);
   }
+
+  public static void addChat(IChatComponent chat) {
+    Minecraft.getMinecraft().thePlayer.addChatMessage(chat);
+  }
+
+  public static ClientChatBuilder builder(String text) {
+    return new ClientChatBuilder(text);
+  }
+
+  public static ClientChatBuilder builder() {
+    return new ClientChatBuilder();
+  }
 }
