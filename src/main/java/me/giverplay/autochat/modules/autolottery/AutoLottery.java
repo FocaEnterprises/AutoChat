@@ -4,6 +4,7 @@ import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import java.util.HashSet;
@@ -39,6 +40,10 @@ public class AutoLottery extends ChatModule {
     }
 
     if(text.contains(WINNER)) {
+      ChatUtils.builder("[AutoLottery] Event finished")
+        .color(EnumChatFormatting.YELLOW)
+        .addToChat();
+
       isOpen = false;
       isLooping = false;
       entries.clear();
@@ -51,6 +56,10 @@ public class AutoLottery extends ChatModule {
   }
 
   private void startResponding() {
+    ChatUtils.builder("[AutoLottery] Sending random entries")
+      .color(EnumChatFormatting.GREEN)
+      .addToChat();
+
     Random random = new Random();
     entries.clear();
 

@@ -32,6 +32,9 @@ public class AutoMath extends ChatModule {
     if(!config.isEnabled()) return;
 
     try {
+      ChatUtils.builder("[AutoMath] Parsing expression")
+        .color(EnumChatFormatting.GREEN)
+        .addToChat();
       int result = evaluateExpression(matcher);
       sendChat(result);
     } catch (Exception ignore) {

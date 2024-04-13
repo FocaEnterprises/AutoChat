@@ -4,6 +4,7 @@ import me.giverplay.autochat.AutoChat;
 import me.giverplay.autochat.modules.ChatModule;
 import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import java.util.regex.Matcher;
@@ -29,6 +30,10 @@ public class AutoWord extends ChatModule {
   }
 
   private void sendChat(String word) {
+    ChatUtils.builder("[AutoWord] Sending word '" + word + "'")
+      .color(EnumChatFormatting.GREEN)
+      .addToChat();
+
     int sleepTime = getConfig().getBaseTime() + word.length() * getConfig().getCharTime();
     ThreadUtils.delayed(() -> ChatUtils.sendChat(word), sleepTime);
   }

@@ -6,6 +6,7 @@ import me.giverplay.autochat.utils.ChatUtils;
 import me.giverplay.autochat.utils.ThreadUtils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import java.util.regex.Matcher;
@@ -31,7 +32,7 @@ public class AutoFastClick extends ChatModule {
   private void checkComponent(IChatComponent component) {
     String text = component.getFormattedText().replace('\u00A7', '&');
 
-    if(text.contains("&e")) {
+    if (text.contains("&e")) {
       ChatStyle style = component.getChatStyle();
 
       if (style != null) {
@@ -48,6 +49,9 @@ public class AutoFastClick extends ChatModule {
   }
 
   private void sendMessage(String msg) {
+    ChatUtils.builder("[AutoFastClick] X detected, sending click")
+      .color(EnumChatFormatting.GREEN)
+      .addToChat();
     ThreadUtils.delayed(() -> ChatUtils.sendChat(msg), 1000);
   }
 }
