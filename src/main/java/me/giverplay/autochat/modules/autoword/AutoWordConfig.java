@@ -14,34 +14,42 @@ public class AutoWordConfig extends ChatModuleConfig {
   private static final String BASE_TIME = "AutoWordBaseTime";
   private static final String CHAR_TIME = "AutoWordCharTime";
 
+  private final NumberElement baseTimeElement;
+  private final NumberElement charTimeElement;
+
   private int baseTime;
   private int charTime;
 
   public AutoWordConfig(AutoWord module) {
     super(module);
+
+    baseTimeElement = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH));
+    baseTimeElement.setMinValue(0);
+    baseTimeElement.setMaxValue(10000);
+
+    charTimeElement = new NumberElement("Delay for each character", new ControlElement.IconData(Material.WATCH));
+    charTimeElement.setMinValue(0);
+    charTimeElement.setMaxValue(10000);
   }
 
   @Override
   public void fillSettings(List<SettingsElement> settings) {
     super.fillSettings(settings);
-
-    NumberElement baseTime = new NumberElement("Reply base time", new ControlElement.IconData(Material.WATCH), this.baseTime);
-    baseTime.setConfigEntryName(BASE_TIME);
-    baseTime.setMinValue(0);
-    baseTime.setMaxValue(10000);
-    settings.add(baseTime);
-
-    NumberElement charTime = new NumberElement("Delay for each character", new ControlElement.IconData(Material.WATCH), this.charTime);
-    charTime.setConfigEntryName(CHAR_TIME);
-    charTime.setMinValue(0);
-    charTime.setMaxValue(10000);
-    settings.add(charTime);
+    settings.add(baseTimeElement);
+    settings.add(charTimeElement);
   }
 
   @Override
   public void loadConfig(JsonObject config) {
     this.baseTime = config.has(BASE_TIME) ? config.get(BASE_TIME).getAsInt() : 800;
     this.charTime = config.has(CHAR_TIME) ? config.get(CHAR_TIME).getAsInt() : 200;
+  }
+
+  @Override
+  public void saveConfig(JsonObject config) {
+    super.saveConfig(config);
+    config.addProperty(BASE_TIME, baseTimeElement.getCurrentValue());
+    config.addProperty(CHAR_TIME, charTimeElement.getCurrentValue());
   }
 
   public int getBaseTime() {
