@@ -28,6 +28,8 @@ public abstract class ChatModule {
 
   @SubscribeEvent
   public final void onChatReceived(ClientChatReceivedEvent event) {
+    if(config != null && !config.isEnabled()) return;
+
     IChatComponent message = event.message;
     Matcher matcher = pattern.matcher(message.getUnformattedText());
 

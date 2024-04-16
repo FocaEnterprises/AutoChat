@@ -25,7 +25,6 @@ public class AutoWord extends ChatModule {
 
   @Override
   public void onChat(IChatComponent message, Matcher matcher) {
-    if(!config.isEnabled()) return;
     sendChat(matcher.group(1));
   }
 

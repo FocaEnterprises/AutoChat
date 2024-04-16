@@ -29,8 +29,6 @@ public class AutoMath extends ChatModule {
 
   @Override
   public void onChat(IChatComponent message, Matcher matcher) {
-    if(!config.isEnabled()) return;
-
     try {
       ChatUtils.builder("[AutoMath] Parsing expression")
         .color(EnumChatFormatting.GREEN)
