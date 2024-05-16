@@ -78,7 +78,10 @@ public class AutoLottery extends ChatModule {
       }
 
       ThreadUtils.sleep(800);
-      ChatUtils.sendChat("/loteria " + entry);
+
+      if(isOpen) {
+        ChatUtils.sendChat("/loteria " + entry);
+      }
     }
   }
 }
