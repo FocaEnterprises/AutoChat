@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AutoMath extends ChatModule {
-  private static final Pattern PATTERN = Pattern.compile("\\[Matem(.+)?tica] Quanto (.+)? (\\d+) ([+\\-*/xX]) (\\d+)\\?");
+  private static final Pattern PATTERN = Pattern.compile("Quanto (.+)? (\\d+) ([+\\-*/xX]) (\\d+)\\?");
   private static final Map<String, BiFunction<Integer, Integer, Integer>> OPERATIONS = new HashMap<>();
 
   public AutoMath(AutoChat addon) {
