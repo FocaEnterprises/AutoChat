@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 public abstract class ChatModule {
 
+  private static final Pattern CHAT_PATTERN = Pattern.compile("\\[[GLgl]]");
+
   protected final AutoChat addon;
   protected final Pattern pattern;
   protected final String name;
@@ -31,7 +33,11 @@ public abstract class ChatModule {
     if(config != null && !config.isEnabled()) return;
 
     IChatComponent message = event.message;
-    Matcher matcher = pattern.matcher(message.getUnformattedText());
+    String text = message.getUnformattedText();
+
+    if(CHAT_PATTERN.matcher(text).find()) return;
+
+    Matcher matcher = pattern.matcher(text);
 
     if(matcher.find()) {
       onChat(message, matcher);
