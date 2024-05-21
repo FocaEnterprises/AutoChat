@@ -64,10 +64,10 @@ public class AutoLottery extends ChatModule {
     entries.clear();
 
     while(isLooping) {
-      int entry = random.nextInt(101);
+      int entry = random.nextInt(151);
 
       while(entries.contains(entry)) {
-        entry = random.nextInt(101);
+        entry = random.nextInt(151);
       }
 
       entries.add(entry);
