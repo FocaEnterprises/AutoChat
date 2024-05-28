@@ -32,7 +32,7 @@ public class AutoFastClick extends ChatModule {
   private void checkComponent(IChatComponent component) {
     String text = component.getFormattedText().replace('\u00A7', '&');
 
-    if (text.contains("&e")) {
+    if (text.contains("&a&l")) {
       ChatStyle style = component.getChatStyle();
 
       if (style != null) {
