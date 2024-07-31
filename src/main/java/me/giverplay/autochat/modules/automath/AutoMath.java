@@ -33,7 +33,15 @@ public class AutoMath extends ChatModule {
       ChatUtils.builder("[AutoMath] Parsing expression")
         .color(EnumChatFormatting.GREEN)
         .addToChat();
+
       int result = evaluateExpression(matcher);
+
+      ChatUtils.builder("[AutoMath] The result is ")
+        .color(EnumChatFormatting.GREEN)
+        .addChild(ChatUtils.builder(Integer.toString(result))
+          .color(EnumChatFormatting.WHITE))
+        .addToChat();
+
       sendChat(result);
     } catch (Exception ignore) {
       ChatUtils.builder("[AutoMath] Failed to parse expression")
@@ -57,13 +65,20 @@ public class AutoMath extends ChatModule {
     if (result < 100) sleep -= decrease;
 
     final int sleepTime = Math.max(sleep, 0);
+
+    ChatUtils.builder("[AutoMath] Sending result in ")
+      .addChild(ChatUtils.builder(Integer.toString(sleepTime / 1000)))
+      .addChild(ChatUtils.builder("s"))
+      .color(EnumChatFormatting.GREEN)
+      .addToChat();
+
     ThreadUtils.delayed(() -> ChatUtils.sendChat(toSend), sleepTime);
   }
 
   private int evaluateExpression(Matcher matcher) {
-    String op = matcher.group(4);
-    int a = Integer.parseInt(matcher.group(3));
-    int b = Integer.parseInt(matcher.group(5));
+    String op = matcher.group(3);
+    int a = Integer.parseInt(matcher.group(2));
+    int b = Integer.parseInt(matcher.group(4));
 
     return OPERATIONS.get(op).apply(a, b);
   }
